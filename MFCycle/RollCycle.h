@@ -10,12 +10,15 @@
 #import "Bursher.h"
 @interface RollCycle : CAShapeLayer
 
+
+@property(nonatomic,assign)CGFloat radian;
 @property(nonatomic,assign)CGFloat baseRadius;
 @property(nonatomic,assign)CGPoint baseCenter;
 @property(nonatomic,strong)UIBezierPath* baseCyclePath;
 @property(nonatomic,assign)CGRect baseRect;
 @property(nonatomic,assign)CGFloat selfRadius;
 - (void)roll;
+- (void)rollIndex:(NSInteger)index;
 
 - (void)stop;
 

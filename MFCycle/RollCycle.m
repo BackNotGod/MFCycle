@@ -23,14 +23,16 @@
 
 
 
-- (void)roll{
+- (void)rollIndex:(NSInteger)index{
     
     if (_baseRadius<=0 || (_baseCenter.x <= 0 && _baseCenter.y <= 0)) {
         return;
     }
-    CGRect selfRect = CGPathGetPathBoundingBox(self.path);
+//    CGRect selfRect = CGPathGetPathBoundingBox(self.path);
     
-    UIBezierPath* animationPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(_baseRadius, _baseRadius) radius:self.baseRadius - _selfRadius startAngle:-M_PI endAngle:M_PI clockwise:YES];
+    CGFloat i = (CGFloat)self.radian/360;
+    
+    UIBezierPath* animationPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(_baseRadius, _baseRadius) radius:self.baseRadius - _selfRadius startAngle:i*2*M_PI endAngle:(i*2*M_PI)+M_PI*2 clockwise:YES];
     
     
 

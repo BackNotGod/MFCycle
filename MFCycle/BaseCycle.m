@@ -11,6 +11,8 @@
 @interface BaseCycle (){
     BOOL isInitlaizal;
     UIBezierPath* bPath;
+    NSTimeInterval count;
+    CADisplayLink* _link;
 }
 
 @end
@@ -22,6 +24,7 @@
     isInitlaizal = YES;
     self.bursh = bursh;
     self.roll = roll;
+    count = 0;
     [self setFillColor:[UIColor clearColor].CGColor];
     [self setStrokeColor:[Vender randomColor].CGColor];
 
@@ -34,6 +37,7 @@
     
     CADisplayLink* link = [CADisplayLink displayLinkWithTarget:self selector:@selector(readPoint)];
     [link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+    _link = link;
 }
 
 - (void)readPoint{
@@ -43,12 +47,22 @@
     
 
     CGPoint prepareDrawPoint = CGPointMake(cycleInSelf.x+brushInSelf.x, brushInSelf.y+cycleInSelf.y);
+    count++;
+
+    if (count >= 300) {
+        [_link invalidate];
+        return;
+    }
     
     if (isInitlaizal) {
+        if (count < 100) {
+            return;
+        }
         isInitlaizal = NO;
         [bPath moveToPoint:prepareDrawPoint];
         
     }else{
+        
         [bPath addLineToPoint:prepareDrawPoint];
         self.path = bPath.CGPath;
     }
